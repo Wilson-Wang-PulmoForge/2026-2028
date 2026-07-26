@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026–2028 Master Plan — Wilson Wang</title>
+<title>2026–2028 Master Plan — Mastery Edition — Wilson Wang</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -33,17 +33,18 @@
   /* ---------- Header ---------- */
   header{ max-width:780px; margin:0 auto; padding:56px 24px 30px; border-bottom:2px solid var(--line-strong); }
   .eyebrow{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:14px; }
-  h1{ font-size:40px; font-weight:700; margin:0 0 14px; letter-spacing:-0.01em; line-height:1.08; color:var(--text); }
+  h1{ font-size:40px; font-weight:700; margin:0 0 12px; letter-spacing:-0.01em; line-height:1.08; color:var(--text); }
+  .edition-tag{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#fff; background:var(--text); padding:4px 10px; border-radius:3px; margin-bottom:18px; }
   .mission-statement{ font-size:16px; line-height:1.6; color:var(--body); max-width:60ch; margin-bottom:22px; }
   .sub{ font-size:12px; color:var(--muted); letter-spacing:0.02em; margin-bottom:26px; font-weight:500; }
 
-  .rule0{ border-left:3px solid var(--text); padding:4px 0 4px 18px; margin-bottom:30px; }
-  .rule0-label{ font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text); font-weight:700; margin-bottom:6px; }
-  .rule0-body{ font-size:15px; font-weight:600; color:var(--text); margin-bottom:8px; }
-  .rule0-examples{ font-size:12.5px; color:var(--muted); line-height:1.6; margin-bottom:8px; }
-  .rule0-close{ font-size:12.5px; color:var(--body); font-style:italic; }
+  .principle{ border-left:3px solid var(--text); padding:4px 0 4px 18px; margin-bottom:18px; }
+  .principle-label{ font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text); font-weight:700; margin-bottom:6px; }
+  .principle-body{ font-size:15px; font-weight:600; color:var(--text); margin-bottom:8px; line-height:1.5; }
+  .principle-list{ font-size:12.5px; color:var(--muted); line-height:1.6; margin-bottom:8px; }
+  .principle-close{ font-size:12.5px; color:var(--body); font-style:italic; }
 
-  .stats{ display:grid; grid-template-columns:repeat(auto-fill, minmax(92px, 1fr)); gap:18px 20px; margin-bottom:16px; }
+  .stats{ display:grid; grid-template-columns:repeat(auto-fill, minmax(92px, 1fr)); gap:18px 20px; margin-bottom:16px; margin-top:8px; }
   .stat-num{ font-size:19px; font-weight:700; color:var(--text); }
   .stat-label{ font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-top:3px; font-weight:600; }
 
@@ -58,6 +59,43 @@
   }
   .text-btn:hover{ color:var(--text); }
 
+  .order-note{ font-size:12.5px; color:var(--muted); font-style:italic; margin:-8px 0 22px; max-width:60ch; }
+
+  /* ---------- Overview / jump grid ---------- */
+  .overview{ max-width:780px; margin:0 auto; padding:28px 24px 26px; border-bottom:2px solid var(--line-strong); }
+  .overview-top{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:6px; }
+  .overview-label{ font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text); font-weight:700; }
+  .overview-filter{ display:flex; gap:8px; }
+  .filter-btn{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.04em; text-transform:uppercase;
+    font-weight:600; color:var(--muted); background:none; border:1.4px solid var(--line); border-radius:20px;
+    padding:5px 12px; cursor:pointer;
+  }
+  .filter-btn.active{ color:#fff; background:var(--text); border-color:var(--text); }
+  .overview-count{ font-size:11px; color:var(--faint); margin-bottom:12px; font-weight:500; }
+  .overview-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:8px; }
+  .ov-tile{
+    display:flex; align-items:flex-start; gap:8px; text-align:left; border:1px solid var(--line);
+    border-radius:5px; padding:9px 10px; background:none; cursor:pointer; transition:border-color .12s ease;
+    font-family:'Inter',sans-serif;
+  }
+  .ov-tile:hover{ border-color:var(--text); }
+  .ov-tile[data-done="true"]{ opacity:0.5; }
+  .ov-dot{ flex:none; width:9px; height:9px; border-radius:50%; border:1.4px solid var(--text); margin-top:3px; }
+  .ov-dot[data-complete="true"]{ background:var(--text); }
+  .ov-body{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .ov-id{ font-size:9.5px; color:var(--faint); font-weight:600; }
+  .ov-title{ font-size:12px; font-weight:600; color:var(--text); line-height:1.3; }
+  .ov-tile[data-done="true"] .ov-title{ text-decoration:line-through; text-decoration-color:var(--line); }
+  .ov-cat{ font-size:9.5px; color:var(--faint); }
+  .ov-tile{ width:100%; font:inherit; }
+
+  @keyframes flashHighlight{
+    0%{ background:#FFF6D6; }
+    100%{ background:transparent; }
+  }
+  .mission.flash{ animation:flashHighlight 1.4s ease; border-radius:6px; }
+
   /* ---------- Main ---------- */
   main{ max-width:780px; margin:0 auto; padding:0 24px 90px; }
   .loading{ padding:64px 0; text-align:center; color:var(--faint); font-size:13px; }
@@ -68,7 +106,7 @@
     padding:24px 0; user-select:none;
   }
   details.level summary::-webkit-details-marker{ display:none; }
-  .level-num{ font-size:12px; color:var(--faint); flex:none; width:26px; font-weight:600; }
+  .level-num{ font-size:11px; color:var(--faint); flex:none; width:62px; font-weight:600; letter-spacing:0.03em; }
   .level-title{ font-size:19px; font-weight:700; flex:1; min-width:0; color:var(--text); }
   .level-count{ font-size:12px; color:var(--muted); flex:none; font-weight:600; }
   .toggle-icon{ flex:none; width:16px; text-align:center; font-size:17px; color:var(--text); font-weight:400; }
@@ -94,6 +132,8 @@
     border:solid #fff; border-width:0 1.6px 1.6px 0; transform:rotate(45deg);
   }
   .check input:focus-visible + .box{ outline:2px solid var(--text); outline-offset:2px; }
+  .box.small{ width:13px; height:13px; border-radius:2px; }
+  .check input:checked + .box.small::after{ left:3.5px; top:1px; width:4px; height:7px; }
   .dot-indicator{
     flex:none; width:17px; height:17px; border-radius:3px; border:1.6px solid var(--text);
     display:flex; align-items:center; justify-content:center; margin-top:2px;
@@ -109,6 +149,16 @@
   .mission[data-done="true"] .mission-title{ color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); }
   .mission-summary{ font-size:13px; color:var(--body); margin-top:6px; line-height:1.55; }
   .mission-tags{ font-size:11.5px; color:var(--faint); margin-top:8px; line-height:1.6; }
+
+  /* ---------- Gate checklist ---------- */
+  .checklist-block{ margin-top:16px; border-top:1px solid var(--line); padding-top:12px; }
+  .checklist-label-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+  .checklist-label{ font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--faint); font-weight:600; }
+  .checklist-progress{ font-size:11px; color:var(--muted); font-weight:700; }
+  .checklist-items{ display:flex; flex-direction:column; gap:1px; }
+  .gate-item{ display:flex; align-items:flex-start; gap:9px; padding:5px 0; cursor:pointer; }
+  .gate-item-text{ font-size:12.5px; line-height:1.5; color:var(--body); }
+  .gate-item[data-done="true"] .gate-item-text{ color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); }
 
   .meta-row{ display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:14px; }
   .meta-item{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); font-weight:500; }
@@ -179,6 +229,7 @@
   @media (max-width:640px){
     header{ padding:40px 18px 24px; }
     main{ padding:0 18px 70px; }
+    .overview{ padding:22px 18px 22px; }
     h1{ font-size:29px; }
     .stats{ grid-template-columns:repeat(auto-fill, minmax(78px, 1fr)); gap:14px 16px; }
     .stat-num{ font-size:16px; }
@@ -191,14 +242,36 @@
 <header>
   <div class="eyebrow mono">PulmoForge · Wilson Wang</div>
   <h1 class="serif">2026–2028 Master Plan</h1>
-  <div class="mission-statement">Become one of the world's strongest technical founders in AI Voice Trust by combining deep research, relentless experimentation, real products, and real customer understanding.</div>
+  <div class="edition-tag">Mastery Edition</div>
+  <div class="mission-statement">Become one of the world's strongest technical founders in AI voice security — not by accumulating exposure to a field, but by reaching mastery in it: able to build it, improve it, explain it, attack it, defend it, and teach it.</div>
   <div class="sub mono" id="counts">MISSIONS · LEVELS · FINAL BOSS</div>
 
-  <div class="rule0">
-    <div class="rule0-label">Rule 0</div>
-    <div class="rule0-body">Every single week produce something that did not exist before.</div>
-    <div class="rule0-examples">Code · Experiment · Dataset · Customer interview · Technical article · Research note · Product improvement · Benchmark</div>
-    <div class="rule0-close">Never become a person who only consumes information.</div>
+  <div class="principle">
+    <div class="principle-label">The Mastery Rule</div>
+    <div class="principle-body">Never move on because you've "spent enough time." Move on only when you can:</div>
+    <div class="principle-list">Build it · Explain it · Critique it · Improve it · Connect it to PulmoForge</div>
+    <div class="principle-close">Mastery is the only completion criterion.</div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">The Five-Outcome Filter</div>
+    <div class="principle-body">Everything you study must eventually become one of:</div>
+    <div class="principle-list">A better PulmoForge product · Better technical judgment · A stronger competitive moat · A research breakthrough · A better founder</div>
+    <div class="principle-close">If it becomes none of these, it wasn't a priority — no matter how interesting it was.</div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">The Mastery Gate Template</div>
+    <div class="principle-body">Every Gate Cluster below closes only when all 9 criteria are checked:</div>
+    <div class="principle-list">Explain without notes · Explain every design decision · Reimplement it · Apply it to a real problem · Compare against alternatives · Explain why each part exists · Explain its limitations · Improve one part · Teach it to someone else</div>
+    <div class="principle-close">Worked example: WavLM — explain the paper without notes, explain every architectural decision, reimplement it, fine-tune it, compare it against HuBERT and Whisper, explain why each layer exists, explain its limitations, improve one part of it, and teach it. Only then move on.</div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">Rule 0</div>
+    <div class="principle-body">Every single week produce something that did not exist before.</div>
+    <div class="principle-list">Code · Experiment · Dataset · Customer interview · Technical article · Research note · Product improvement · Benchmark · A closed Mastery Gate</div>
+    <div class="principle-close">Never become a person who only consumes information.</div>
   </div>
 
   <div class="stats" id="stats"></div>
@@ -209,6 +282,22 @@
     <button class="text-btn" id="collapseAll">Collapse all</button>
   </div>
 </header>
+
+<div class="overview">
+  <div class="overview-top">
+    <span class="overview-label mono">All Gates &amp; Practices</span>
+    <div class="overview-filter" id="overviewFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="gate">Gates</button>
+      <button class="filter-btn" data-filter="habit">Practices</button>
+      <button class="filter-btn" data-filter="open">Open</button>
+      <button class="filter-btn" data-filter="done">Closed</button>
+    </div>
+  </div>
+  <div class="order-note">These are parallel tracks, not a sequence — there's no requirement to close Track 01 before starting Track 05. Work whatever gate fits this week; tap any tile to jump straight to it.</div>
+  <div class="overview-count mono" id="overviewCount"></div>
+  <div class="overview-grid" id="overviewGrid"></div>
+</div>
 
 <main>
   <div id="loading" class="loading mono">loading plan…</div>
@@ -230,200 +319,202 @@
 <script>
 (function(){
 
+  const GATE_CHECKLIST = [
+    "Explain it without notes",
+    "Explain every major design decision inside it",
+    "Reimplement or reproduce its core mechanism",
+    "Apply it — fine-tune, deploy, or use it on a real problem",
+    "Compare it against its closest alternatives",
+    "Explain why each component exists — and what breaks without it",
+    "Explain its limitations and failure modes",
+    "Improve or extend one part of it",
+    "Teach it clearly to another engineer"
+  ];
+
+  const HABIT_CHECKLIST = [
+    "Build it",
+    "Explain it",
+    "Critique it",
+    "Improve it",
+    "Connect it to PulmoForge"
+  ];
+
   const COUNTERS = [
-    { id:"1",  label:"Papers",       target:500,  unit:"papers" },
-    { id:"2",  label:"Notes",        target:500,  unit:"notes" },
-    { id:"5",  label:"Experiments",  target:1000, unit:"experiments" },
-    { id:"7",  label:"Versions",     target:100,  unit:"versions" },
-    { id:"11", label:"Companies",    target:1000, unit:"companies" },
-    { id:"17", label:"Articles",     target:100,  unit:"articles" }
+    { id:"1",  label:"Papers",       target:500,  unit:"papers mastered" },
+    { id:"2",  label:"Notes",        target:500,  unit:"notes filed" },
+    { id:"12", label:"Experiments",  target:1000, unit:"experiments" },
+    { id:"14", label:"Versions",     target:100,  unit:"shipped versions" },
+    { id:"15", label:"Reports",      target:250,  unit:"security reports" },
+    { id:"20", label:"Patents",      target:300,  unit:"patents reviewed" },
+    { id:"22", label:"Companies",    target:1000, unit:"companies studied" },
+    { id:"28", label:"Publications", target:20,   unit:"published works" },
+    { id:"32", label:"Problems",     target:1000, unit:"problems logged" },
+    { id:"33", label:"Articles",     target:100,  unit:"articles" },
+    { id:"34", label:"Predictions",  target:36,   unit:"monthly predictions" },
+    { id:"45", label:"Streak",       target:150,  unit:"weeks maintained" }
   ];
   const COUNTER_MAP = {};
   COUNTERS.forEach(c => COUNTER_MAP[c.id] = c);
 
   const LEVELS = [
     { num:1, title:"Become the World Expert in Voice Trust", missions:[
-      { id:"1", title:"Read 500 Research Papers",
-        summary:"Actually understand them. Goal: know every important breakthrough, limitation, and open problem.",
+      { id:"1", type:"gate", title:"Core Voice Trust Topics",
+        summary:"Stay on each of these until you can outperform most people discussing it — debate it credibly with someone who works on it full-time.",
         tags:["Deepfake Detection","Audio Forensics","Speech Representation Learning","Self-Supervised Learning","Speaker Verification","Voice Biometrics","Voice Cloning","TTS","Adversarial ML","Authentication","Multimodal Security","Human Perception","AI Trust"] },
-      { id:"2", title:"Produce 500 Research Notes",
-        summary:"Every paper becomes a summary, main contribution, weaknesses, ideas, implementation thoughts, and future research. Build: PulmoForge Intelligence Database.",
-        tags:["Summary","Main contribution","Weaknesses","Ideas","Implementation thoughts","Future research"] },
-      { id:"3", title:"Explain Voice Trust Simply",
-        summary:"Be able to explain to a CEO, investor, engineer, customer, or high school student why current systems fail and why PulmoForge exists.",
+      { id:"2", type:"habit", title:"Turn Mastery Into a Permanent Asset",
+        summary:"Every closed topic becomes a structured artifact — contribution, weaknesses, ideas, implementation thoughts, PulmoForge connection. Build the PulmoForge Intelligence Database.",
+        tags:["Summary","Main contribution","Weaknesses","Ideas","Implementation thoughts","Connection to PulmoForge"] },
+      { id:"3", type:"gate", title:"Explain Voice Trust Simply",
+        summary:"If you can't explain it simply, you haven't mastered it — you've memorized it. Compress to the right depth for each audience.",
         tags:["CEO","Investor","Engineer","Customer","High school student","Voice cloning","Authentication","Speaker verification","Deepfake detection","Why current systems fail","Why PulmoForge exists"] }
     ]},
     { num:2, title:"Become a Technical Monster", missions:[
-      { id:"4", title:"Rebuild the AI Voice Stack",
-        summary:"Master speech representation, detection, speaker security, and generation — both sides of the problem.",
-        tags:["WavLM","HuBERT","Wav2Vec2","Whisper","CNN","Transformer","Attention","Contrastive Learning","Metric Learning","ECAPA-TDNN","Speaker Verification","Voice Biometrics","Tacotron","VITS","Bark","Dia","ElevenLabs-like architectures"] },
-      { id:"4.5", title:"Master the Entire Speech AI Pipeline",
-        summary:"Understand every stage from microphone to model output. Goal: know exactly what happens to audio before it reaches an AI model.",
-        tags:["Audio signal processing","Sampling theory","FFT/STFT","Mel spectrograms","MFCCs","Voice activity detection (VAD)","Noise suppression","Echo cancellation","Speaker diarization","Audio codecs (Opus, AAC, PCM, G.711)","Streaming audio pipelines","Low-latency inference","Real-time audio processing","Edge vs cloud inference"] },
-      { id:"4.6", title:"Understand Every Major TTS System",
-        summary:"Study how synthetic voices are actually created — training data, embeddings, prosody, tokenization, failure modes. Goal: know how attackers generate voices so you can build better defenses.",
-        tags:["Tacotron","Tacotron 2","FastSpeech","FastSpeech 2","VITS","Bark","Dia","ElevenLabs-style architectures","XTTS","Fish Speech","CosyVoice","StyleTTS","Voice Conversion (RVC, Seed-VC, OpenVoice)","Diffusion TTS","Flow Matching TTS","Zero-shot voice cloning","Few-shot voice cloning","Emotional speech synthesis"] },
-      { id:"4.7", title:"Master Speaker Recognition",
-        summary:"Understand identity, not just speech. Question: how do you prove someone is who they claim to be?",
-        tags:["Speaker identification","Speaker verification","Speaker diarization","X-vectors","ECAPA-TDNN","Embedding spaces","Similarity metrics","Anti-spoofing","Replay attacks","Liveness detection","Behavioral biometrics"] },
-      { id:"4.8", title:"Build Real-Time AI Systems",
-        summary:"PulmoForge is a real-time product. Goal: ship production-grade AI, not just research models.",
-        tags:["Streaming inference","WebRTC","WebSockets","Browser audio APIs","Chrome extensions","Mobile audio capture","Desktop audio capture","GPU optimization","Quantization","ONNX","TensorRT","Edge deployment","Model serving","Distributed systems"] },
-      { id:"4.9", title:"Master Speech Representation Learning",
-        summary:"Study every major self-supervised speech model — pretraining objectives, masked prediction, transfer learning. Question: why does each representation capture different information?",
+      { id:"4", type:"gate", title:"Gate Cluster: Speech Representation",
+        summary:"For each model: pretraining objective, why masked prediction or contrastive learning was chosen, transfer quality, and why it captures different information than its neighbors.",
         tags:["Wav2Vec","Wav2Vec 2.0","HuBERT","Data2Vec","WavLM","BEATs","Whisper Encoder","SpeechLM","SeamlessM4T","XLS-R","MMS"] },
-      { id:"4.10", title:"Master Audio Signal Processing",
-        summary:"Understand audio before AI. Goal: never treat audio as just another tensor.",
-        tags:["Fourier Transform","FFT","STFT","Wavelets","Spectrograms","Mel Spectrograms","MFCCs","Chroma Features","Pitch Extraction","Formants","Harmonics","Cepstral Analysis","LPC","Beamforming","Filtering","Equalization"] },
-      { id:"4.11", title:"Master Voice Biometrics",
-        summary:"Understand human identity through speech. Question: what actually makes one person's voice unique?",
-        tags:["Speaker embeddings","X-Vectors","D-Vectors","ECAPA-TDNN","GE2E Loss","ArcFace","CosFace","Triplet Loss","Metric Learning","Enrollment","Verification","Identification"] },
-      { id:"4.12", title:"Master Adversarial Machine Learning",
-        summary:"Attack your own models. Every weakness discovered becomes a future PulmoForge feature.",
+      { id:"5", type:"gate", title:"Gate Cluster: Speaker Security",
+        summary:"Close only when you can answer, with technical precision: what makes one person's voice unique, and how do you prove someone is who they claim to be?",
+        tags:["X-Vectors","D-Vectors","ECAPA-TDNN","GE2E Loss","ArcFace","CosFace","Triplet Loss","Metric Learning","Enrollment","Verification","Identification"] },
+      { id:"6", type:"gate", title:"Gate Cluster: Voice Generation",
+        summary:"Master the attacker's toolkit — training data, speaker embeddings, prosody modeling, tokenization, inference pipeline, failure modes, artifacts that reveal synthetic speech.",
+        tags:["Tacotron","Tacotron 2","FastSpeech","FastSpeech 2","VITS","Bark","Dia","XTTS","Fish Speech","CosyVoice","StyleTTS","RVC / Seed-VC / OpenVoice","Diffusion TTS","Flow Matching TTS","Zero-shot cloning","Few-shot cloning","Emotional speech synthesis","ElevenLabs-style architectures"] },
+      { id:"7", type:"gate", title:"Gate Cluster: Audio Before AI",
+        summary:"Close only once you never treat audio as just another tensor — you know exactly what happens from microphone to model input.",
+        tags:["Sampling theory","FFT/STFT","Wavelets","Spectrograms","Mel spectrograms","MFCCs","Chroma features","Pitch extraction","Formants","Harmonics","Cepstral analysis","LPC","Beamforming","Filtering","Equalization","VAD","Noise suppression","Echo cancellation","Speaker diarization","Audio codecs (Opus, AAC, PCM, G.711)","Streaming pipelines","Low-latency inference","Edge vs. cloud inference"] },
+      { id:"8", type:"gate", title:"Gate Cluster: Detection Architectures",
+        summary:"Close when you can say, for any new detection problem, exactly which approach wins, which loses, and why — from having built and broken each one.",
+        tags:["CNNs","Transformers","Hybrid models","Spectrogram models","Raw-waveform models","Ensembles","Attention pooling","Multi-task learning","Contrastive learning","Self-supervised approaches","Multimodal systems"] },
+      { id:"9", type:"gate", title:"Gate Cluster: Adversarial ML",
+        summary:"Attack your own models until you know their weaknesses before an outside attacker does. Every weakness becomes a candidate PulmoForge feature.",
         tags:["Adversarial examples","Evasion attacks","Data poisoning","Model stealing","Membership inference","Backdoor attacks","Gradient attacks","Robust optimization","Certified robustness"] },
-      { id:"4.13", title:"Master AI Evaluation",
-        summary:"Never trust one metric. Learn to design evaluation suites, not just run them.",
-        tags:["Accuracy","Precision","Recall","F1","ROC-AUC","EER","DET Curves","Calibration","Latency","Throughput","Memory","Cost","False positives","False negatives"] },
-      { id:"4.14", title:"Build Every Detection Approach",
-        summary:"Implement and compare. Know exactly where each approach wins and loses.",
-        tags:["CNNs","Transformers","Hybrid models","Spectrogram models","Raw waveform models","Ensemble models","Attention pooling","Multi-task learning","Contrastive learning","Self-supervised approaches","Multimodal systems"] },
-      { id:"5", title:"Build 1,000 Experiments",
-        summary:"Document every experiment. Failures become future advantages.",
+      { id:"10", type:"gate", title:"Gate Cluster: AI Evaluation",
+        summary:"Close when you can design an evaluation suite from scratch for a problem you've never seen — not just run one someone else built.",
+        tags:["Accuracy","Precision","Recall","F1","ROC-AUC","EER","DET curves","Calibration","Latency","Throughput","Memory","Cost","False positives","False negatives"] },
+      { id:"11", type:"gate", title:"Gate Cluster: Real-Time Systems",
+        summary:"Close when you can ship production-grade, low-latency AI — not just a research notebook.",
+        tags:["Streaming inference","WebRTC","WebSockets","Browser audio APIs","Chrome extensions","Mobile audio capture","Desktop audio capture","GPU optimization","Quantization","ONNX","TensorRT","Edge deployment","Model serving","Distributed systems"] },
+      { id:"12", type:"habit", title:"Experiment Relentlessly",
+        summary:"Don't chase a count. Experiment until you understand why every major design decision succeeds or fails, and document every one.",
         tags:["Feature extraction","Augmentation","Compression","Architectures","Thresholding","Adversarial attacks","Detection pipelines"] },
-      { id:"6", title:"Build the World's Best Voice Fraud Dataset",
-        summary:"Goal: PulmoForge Benchmark Dataset.",
-        tags:["Human speech","Synthetic speech","Voice conversion","Meeting compression","Phone audio","Noise","Multilingual speakers"] },
-      { id:"6.5", title:"Build an Adversarial Research Lab",
-        summary:"Think like the attacker. Every new attack becomes a new benchmark for PulmoForge.",
-        tags:["New voice cloning models","Replay attacks","Prompt injection for voice agents","Compression attacks","Noise attacks","Accent variation","Emotional speech","Cross-language cloning","Voice conversion","AI-to-AI conversations"] },
-      { id:"6.6", title:"Master AI Voice Attack Research",
-        summary:"Study every attack category. Maintain a living attack library.",
-        tags:["Voice cloning","Voice conversion","Replay attacks","Injection attacks","Prompt-conditioned attacks","Live impersonation","Audio editing","Compression attacks","Streaming attacks","Telephone attacks","Video conference attacks","AI agent impersonation"] },
-      { id:"6.7", title:"Build the World's Largest Evaluation Library",
-        summary:"Continuously collect. Every new dataset improves robustness.",
-        tags:["Public datasets","Synthetic datasets","Enterprise recordings","Telephony audio","Meeting audio","Podcasts","Interviews","Languages","Accents","Microphones","Background environments"] },
-      { id:"7", title:"Ship 100 Product Versions",
-        summary:"Not experiments — actual improvements. Every version should improve these dimensions.",
+      { id:"13", type:"habit", title:"Build the Dataset as a Moat",
+        summary:"Keep improving the dataset until it becomes one of PulmoForge's strongest long-term competitive advantages — a living attack library and evaluation library.",
+        tags:["Human speech","Synthetic speech","Voice conversion","Meeting compression","Phone audio","Noise","Multilingual speakers","Adversarial attack samples","Cross-language cloning","AI-to-AI conversations"] },
+      { id:"14", type:"habit", title:"Ship Continuously",
+        summary:"Don't chase a version count. Ship only when a release is a real, measurable improvement — otherwise it doesn't count.",
         tags:["Accuracy","UX","Speed","Reliability","Detection","Customer value"] }
     ]},
     { num:3, title:"Cybersecurity Dominance", missions:[
-      { id:"8", title:"Read Every Major Security Report",
-        summary:"How are attackers operating, and where are current defenses weak?",
+      { id:"15", type:"gate", title:"Know the Landscape Cold",
+        summary:"Know the AI voice security landscape better than anyone you compete against — able to argue findings, methodology, and blind spots, not just cite them.",
         tags:["Pindrop","Microsoft","CrowdStrike","Palo Alto","Cloudflare","Okta","Mandiant","FBI","NIST"] },
-      { id:"8.5", title:"Master Security Architecture",
-        summary:"Understand enterprise security. PulmoForge should integrate naturally into enterprise security ecosystems.",
-        tags:["Zero Trust","Identity Access Management","MFA","PKI","OAuth","OpenID Connect","SAML","RBAC","ABAC","Device Trust","Secure Boot","TPM","HSM"] },
-      { id:"8.6", title:"Master Digital Trust",
-        summary:"Understand trust beyond voice. Think beyond detection — think about proving authenticity.",
+      { id:"16", type:"gate", title:"Gate Cluster: Security Architecture",
+        summary:"Close when PulmoForge's integration into enterprise security ecosystems feels obvious to you, not just theoretically possible.",
+        tags:["Zero Trust","IAM","MFA","PKI","OAuth","OpenID Connect","SAML","RBAC","ABAC","Device Trust","Secure Boot","TPM","HSM"] },
+      { id:"17", type:"gate", title:"Gate Cluster: Digital Trust",
+        summary:"Close when you're thinking past detection and into proving authenticity.",
         tags:["Digital identity","Provenance","Watermarking","C2PA","Cryptographic signatures","Secure timestamps","Chain of custody","Reputation systems","Risk scoring","Confidence estimation"] },
-      { id:"9", title:"Analyze Every Competitor",
-        summary:"Become the person who understands the market better than investors.",
+      { id:"18", type:"habit", title:"Study Competitors Until They Can't Surprise You",
+        summary:"Understand why each exists, why customers buy it, what would kill it. The standard: understand the market better than the investors evaluating it.",
         tags:["Technology","Customers","Funding","Pricing","Patents","Weaknesses","Moats"] },
-      { id:"9.5", title:"Track the Entire Voice AI Ecosystem",
-        summary:"Maintain a living database. Goal: never be surprised by where the industry is moving.",
+      { id:"19", type:"habit", title:"Maintain a Living Ecosystem Map",
+        summary:"Never be surprised by where the industry is moving — a standing view, not a one-time survey.",
         tags:["Voice AI startups","Open-source models","Speech datasets","Research labs","Big Tech releases","Enterprise security vendors","Patent filings","Funding rounds","Major acquisitions","Government regulations"] },
-      { id:"10", title:"Read Relevant Patents",
-        summary:"Question: what is nobody protecting?",
+      { id:"20", type:"gate", title:"Master the IP Landscape",
+        summary:"The bar isn't \"I read the patents\" — it's \"I can see what nobody is protecting yet.\"",
         tags:["Authentication","Voice Biometrics","Watermarking","Fraud Detection"] },
-      { id:"10.5", title:"Study Trust Infrastructure",
-        summary:"PulmoForge isn't just an AI company — it's building trust infrastructure. Question: how should trust work in an AI-native world?",
+      { id:"21", type:"gate", title:"Gate Cluster: Trust Infrastructure",
+        summary:"Close when you have a real, defensible answer to: how should trust work in an AI-native world?",
         tags:["Digital identity","Authentication","PKI","Cryptography fundamentals","Zero Trust Architecture","Device trust","Identity federation","Digital signatures","Secure enclaves","Privacy-preserving ML","Watermarking","Provenance (C2PA)","Risk scoring"] }
     ]},
     { num:4, title:"Founder Mastery", missions:[
-      { id:"11", title:"Analyze 1,000 Companies",
-        summary:"Understand why companies win and why they fail.",
-        tags:["Problem","Product","Distribution","Technical Moat","Why they won","Why they failed"] },
-      { id:"11.5", title:"Reverse Engineer Every AI Voice Company",
-        summary:"Questions: what is their moat, what data do they own, why do customers buy, where are they vulnerable?",
+      { id:"22", type:"gate", title:"Study Every Company Until It Stops Surprising You",
+        summary:"Not skim — study, until you understand why it exists, why customers buy it, and what would kill it.",
+        tags:["Problem","Product","Distribution","Technical moat","Why they won","Why they failed"] },
+      { id:"23", type:"gate", title:"Reverse-Engineer Every AI Voice Company",
+        summary:"Treat each as its own mastery gate — moat, data ownership, why customers buy, where they're vulnerable.",
         tags:["ElevenLabs","OpenAI Voice","Google Gemini Live","Microsoft","Amazon Alexa","Meta","Anthropic","Hume AI","Deepgram","AssemblyAI","Speechmatics","Pindrop","Reality Defender","Veridas","Hiya","NICE","Genesys"] },
-      { id:"11.6", title:"Study Every Major AI Lab",
-        summary:"Track research. Know where research is heading before products appear.",
+      { id:"24", type:"habit", title:"Track Research Before It Becomes Product",
+        summary:"Know where research is heading before products appear.",
         tags:["OpenAI","Google DeepMind","Meta AI","Microsoft Research","NVIDIA Research","Anthropic","FAIR","Apple ML Research","CMU","MIT","Stanford","Berkeley"] },
-      { id:"12", title:"Master Enterprise Sales",
-        summary:"Learn how enterprise security software actually gets bought.",
+      { id:"25", type:"gate", title:"Master Enterprise Sales",
+        summary:"Learn to run these conversations, not just describe them.",
         tags:["CISOs","Procurement","Security buying","Enterprise pilots","Compliance","Trust"] },
-      { id:"12.5", title:"Master Enterprise Product Design",
-        summary:"Design products security teams actually enjoy using.",
+      { id:"26", type:"gate", title:"Master Enterprise Product Design",
+        summary:"Design products security teams actually enjoy using, not just tolerate.",
         tags:["SOC workflows","Security dashboards","Incident response","Alert prioritization","Human factors","Explainability","Trust visualization","Analyst workflows"] },
-      { id:"13", title:"Build Founder OS",
-        summary:"Future Wilson should understand every major decision.",
+      { id:"27", type:"habit", title:"Build Founder OS",
+        summary:"Document thoroughly enough that future-you understands every major decision without reconstructing it from memory.",
         tags:["Decisions","Experiments","Customers","Strategy","Mistakes","Lessons"] }
     ]},
     { num:5, title:"Research Leadership", missions:[
-      { id:"14", title:"Publish Research",
-        summary:"Produce research output the field can build on.",
-        tags:["arXiv Papers","Benchmarks","Technical Articles","Open Source Tools"] },
-      { id:"14.5", title:"Build Open Source",
-        summary:"Contribute back to the ecosystem. Become known for advancing the field, not just building a product.",
-        tags:["Models","Evaluation tools","Benchmarks","Detection libraries","Datasets (where appropriate)","Research tooling"] },
-      { id:"14.6", title:"Build an Internal Research Culture",
+      { id:"28", type:"gate", title:"Publish and Open Source",
+        summary:"The bar is being known for advancing the field — not just for building a product on top of it.",
+        tags:["arXiv papers","Benchmarks","Technical articles","Open-source tools","Models","Evaluation tools","Detection libraries","Datasets","Research tooling"] },
+      { id:"29", type:"habit", title:"Build an Internal Research Culture",
         summary:"Build the company you wish already existed.",
         tags:["Weekly research reviews","Reading groups","Experiment reviews","Benchmark updates","Failure analysis","Technical RFCs","Architecture documents"] },
-      { id:"15", title:"Create Industry Benchmarks",
+      { id:"30", type:"gate", title:"Create Industry Benchmarks",
         summary:"Define concrete benchmarks the industry can measure against.",
         tags:["Voice Fraud Benchmark","Meeting Compression Benchmark","Real-Time Detection Benchmark"] },
-      { id:"15.5", title:"Build the Industry Standard",
-        summary:"Don't just compete on accuracy — define how the industry measures trust. Success is when researchers and companies compare against PulmoForge's evaluation standards.",
+      { id:"31", type:"gate", title:"Build the Industry Standard",
+        summary:"Don't just compete on accuracy — define how the industry measures trust. Success is when others benchmark against yours.",
         tags:["Real-Time Voice Trust Score","Synthetic Speech Confidence Benchmark","Enterprise Voice Risk Index","Cross-Platform Voice Security Benchmark","Streaming Deepfake Detection Benchmark"] },
-      { id:"16", title:"Solve Invisible Problems",
-        summary:"Ask constantly: what limitation has everyone accepted?",
-        tags:[] },
-      { id:"16.5", title:"Build a Personal Problem Database",
-        summary:"Whenever you notice friction, document it. Accumulate thousands of problems over time.",
+      { id:"32", type:"habit", title:"Build a Personal Problem Database",
+        summary:"Whenever you notice friction, document it. Accumulate over years. Constantly ask: what limitation has everyone accepted?",
         tags:["Who experiences it?","Why does it exist?","Current solutions","Market size","Technical difficulty","Why hasn't it been solved?","Can AI solve it?","Can PulmoForge solve it?"] }
     ]},
     { num:6, title:"Communication", missions:[
-      { id:"17", title:"Write 100 Exceptional Technical Articles",
-        summary:"Quality over quantity.",
+      { id:"33", type:"gate", title:"Write Until Your Thinking Is Recognizable",
+        summary:"Not toward a count — until people in the field recognize your thinking before they see your name on it. Quality over quantity, always.",
         tags:["AI Trust","Voice Security","Detection","Authentication","Product Engineering"] },
-      { id:"18", title:"Predict the Future",
-        summary:"Monthly predictions. Review predictions every year.",
+      { id:"34", type:"habit", title:"Predict the Future",
+        summary:"Every month, predict what's coming. Review every year — mastery here means your calibration measurably improves.",
         tags:["AI","Cybersecurity","Voice AI","Enterprise","Regulation"] },
-      { id:"19", title:"Challenge Every Assumption",
-        summary:"Ask weekly.",
-        tags:["Why might PulmoForge fail?","What am I wrong about?","What does the competitor know that I don't?"] },
-      { id:"19.5", title:"Build First-Principles Thinking",
-        summary:"The goal is not to optimize existing systems — it's to invent the next generation of trusted voice communication.",
-        tags:["Why does this exist?","What problem is it solving?","Can physics, math, or CS suggest a better approach?","What if we rebuilt this from scratch today?","What would this look like if AI had existed first?"] }
+      { id:"35", type:"habit", title:"Challenge Every Assumption",
+        summary:"Ask weekly, without exception.",
+        tags:["Why might PulmoForge fail?","What am I wrong about?","What does a competitor know that I don't?"] },
+      { id:"36", type:"gate", title:"Build First-Principles Thinking",
+        summary:"The goal isn't to optimize what exists — it's to invent the next generation of trusted voice communication.",
+        tags:["Why does this exist?","What problem is it solving?","What would physics/math/CS suggest instead?","What if rebuilt from scratch today?","What if AI had existed first?"] }
     ]},
     { num:7, title:"Personal Operating System", missions:[
-      { id:"20", title:"Founder Health",
-        summary:"Non-negotiable. Your company cannot outperform your operating system.",
+      { id:"37", type:"habit", title:"Founder Health",
+        summary:"Non-negotiable. Your company cannot outperform your own operating system.",
         tags:["Sleep","Strength","Cardio","Nutrition"] },
-      { id:"21", title:"Communication",
-        summary:"Master these skills.",
+      { id:"38", type:"gate", title:"Communication",
+        summary:"Master these to the point where each holds up under a skeptical, senior audience — not just a friendly one.",
         tags:["Pitches","Public speaking","Technical communication","Customer conversations","Leadership"] }
     ]},
     { num:8, title:"Systems Thinking", missions:[
-      { id:"22", title:"Master Systems",
+      { id:"39", type:"gate", title:"Gate Cluster: Systems Foundations",
         summary:"Study the systems that govern everything else.",
         tags:["Control Theory","Feedback Loops","Complex Systems","Network Effects","Incentives"] },
-      { id:"22.5", title:"Master Distributed Systems",
-        summary:"AI products operate at scale.",
+      { id:"40", type:"gate", title:"Gate Cluster: Distributed Systems",
+        summary:"AI products operate at scale — master what that requires.",
         tags:["Networking","APIs","Message queues","Kafka","Redis","PostgreSQL","Vector databases","Kubernetes","Docker","Load balancing","Caching","Fault tolerance","Observability","Distributed inference"] },
-      { id:"22.6", title:"Master AI Infrastructure",
-        summary:"Understand how frontier AI systems are built.",
+      { id:"41", type:"gate", title:"Gate Cluster: AI Infrastructure",
+        summary:"Understand how frontier AI systems are actually built.",
         tags:["CUDA fundamentals","GPU architecture","Mixed precision","Quantization","ONNX","TensorRT","vLLM","Triton Inference Server","Ray","PyTorch internals","Memory optimization","Distributed training","Multi-GPU systems"] },
-      { id:"22.7", title:"Master MLOps",
-        summary:"Build production AI systems.",
+      { id:"42", type:"gate", title:"Gate Cluster: MLOps",
+        summary:"Build production AI systems, not just research pipelines.",
         tags:["CI/CD","MLflow","DVC","Model versioning","Experiment tracking","Feature stores","Monitoring","Drift detection","Retraining pipelines","Canary deployments","Rollbacks"] },
-      { id:"23.5", title:"Master Technical Leadership",
-        summary:"Become the founder engineers want to follow.",
+      { id:"43", type:"gate", title:"Master Technical Leadership",
+        summary:"Become the founder engineers want to follow, not just report to.",
         tags:["Hiring researchers","Hiring engineers","Running technical interviews","Giving feedback","Delegation","Engineering management","Research management","Company culture","Decision making under uncertainty"] },
-      { id:"23.6", title:"Master Scientific Thinking",
-        summary:"Every product decision should be backed by evidence, not intuition.",
+      { id:"44", type:"gate", title:"Master Scientific Thinking",
+        summary:"Every product decision should be backed by evidence, not intuition — that's the test.",
         tags:["Experimental design","Statistics","Bayesian reasoning","Causal inference","Information theory","Decision theory","Optimization","Probability","Research methodology","Reproducibility"] },
-      { id:"24.6", title:"Build an Unfair Information Advantage",
-        summary:"The objective is to know what is happening in AI voice security before most of the industry does.",
-        tags:["Read 10 research papers / week","Read 5 security reports / week","Read 3 startup analyses / week","Review new GitHub repositories","Track new Hugging Face models","Monitor patent filings","Monitor AI funding rounds","Review enterprise security news"] },
-      { id:"23", title:"Master Economics",
-        summary:"Understand the economic forces shaping the market.",
+      { id:"45", type:"habit", title:"Build an Unfair Information Advantage",
+        summary:"Not a quota — a standing weekly practice so nothing significant in AI voice security happens without you knowing about it early.",
+        tags:["Research papers","Security reports","Startup analyses","New GitHub repositories","New Hugging Face models","Patent filings","AI funding rounds","Enterprise security news"] },
+      { id:"46", type:"gate", title:"Master Economics",
+        summary:"Reason about PulmoForge's market position from first principles, not just intuition.",
         tags:["Pricing","Markets","Incentives","Monopoly","Behavioral Economics"] },
-      { id:"24", title:"Master Negotiation",
-        summary:"Learn to negotiate across every important relationship.",
+      { id:"47", type:"gate", title:"Master Negotiation",
+        summary:"Learn to run these rooms, not just survive them.",
         tags:["Enterprise negotiation","Fundraising","Hiring","Partnerships"] },
-      { id:"24.5", title:"Master AI Product Engineering",
-        summary:"A great model alone is not a great product. Goal: bridge the gap between state-of-the-art AI research and products that customers actually trust and use.",
+      { id:"48", type:"gate", title:"Master AI Product Engineering",
+        summary:"A great model alone is not a great product. Bridge state-of-the-art research into products customers actually trust and use.",
         tags:["Product management","Human-computer interaction","UX for security products","Alert fatigue","Explainable AI","Customer onboarding","Reliability engineering","Observability","Telemetry","A/B testing","Feature flags","Product analytics"] }
     ]}
   ];
@@ -438,22 +529,30 @@
       "Recruit another team?",
       "Earn customer trust again?"
     ],
-    outro:"If the answer is yes… mission complete."
+    outro:"If the answer is yes — not \u201Cprobably,\u201D but because you've closed the gates that prove it — mission complete."
   };
 
-  // attach counter metadata onto matching missions
-  LEVELS.forEach(l => l.missions.forEach(m => { if(COUNTER_MAP[m.id]) m.counter = COUNTER_MAP[m.id]; }));
+  // attach counter + track metadata onto matching missions
+  LEVELS.forEach(l => l.missions.forEach(m => {
+    if(COUNTER_MAP[m.id]) m.counter = COUNTER_MAP[m.id];
+    m.levelNum = l.num;
+    m.levelTitle = l.title;
+  }));
 
   const ALL_MISSIONS = LEVELS.flatMap(l => l.missions);
-  const STORAGE_KEY = 'pulmoforge_master_plan_v1';
+  const MISSION_MAP = {};
+  ALL_MISSIONS.forEach(m => { MISSION_MAP[m.id] = m; });
+  const STORAGE_KEY = 'pulmoforge_master_plan_mastery_v1';
 
   let state = null;
   let saveTimer = null;
 
+  function checklistFor(m){ return m.type === 'gate' ? GATE_CHECKLIST : HABIT_CHECKLIST; }
+
   function defaultState(){
     const missions = {};
     ALL_MISSIONS.forEach(m => {
-      missions[m.id] = { done:false, note:'', at:null, target:'', count: m.counter ? 0 : undefined };
+      missions[m.id] = { checklist: checklistFor(m).map(()=>false), note:'', at:null, target:'', count: m.counter ? 0 : undefined };
     });
     return {
       missions,
@@ -468,7 +567,15 @@
         const parsed = JSON.parse(res.value);
         const fresh = defaultState();
         Object.keys(fresh.missions).forEach(id=>{
-          if(parsed.missions && parsed.missions[id]) Object.assign(fresh.missions[id], parsed.missions[id]);
+          const p = parsed.missions && parsed.missions[id];
+          if(!p) return;
+          if(Array.isArray(p.checklist) && p.checklist.length === fresh.missions[id].checklist.length){
+            fresh.missions[id].checklist = p.checklist.map(Boolean);
+          }
+          if(typeof p.note === 'string') fresh.missions[id].note = p.note;
+          if(p.at) fresh.missions[id].at = p.at;
+          if(typeof p.target === 'string') fresh.missions[id].target = p.target;
+          if(fresh.missions[id].count !== undefined && typeof p.count === 'number') fresh.missions[id].count = p.count;
         });
         if(parsed.finalBoss){
           fresh.finalBoss.q = (parsed.finalBoss.q && parsed.finalBoss.q.length===FINAL_BOSS.questions.length) ? parsed.finalBoss.q : fresh.finalBoss.q;
@@ -506,8 +613,9 @@
 
   function isMissionDone(m){
     const ms = state.missions[m.id];
-    if(m.counter) return ms.count >= m.counter.target;
-    return ms.done;
+    const checklistDone = ms.checklist.length > 0 && ms.checklist.every(Boolean);
+    const counterDone = m.counter ? (ms.count >= m.counter.target) : true;
+    return checklistDone && counterDone;
   }
   function isOverdue(target, done){
     if(!target || done) return false;
@@ -520,18 +628,72 @@
 
   function renderHeaderText(){
     document.getElementById('counts').textContent =
-      `${ALL_MISSIONS.length} MISSIONS · ${LEVELS.length} LEVELS · 1 FINAL BOSS`;
+      `${ALL_MISSIONS.length} MISSIONS · ${LEVELS.length} PARALLEL TRACKS · 1 FINAL BOSS`;
   }
 
   function renderStats(){
     const statsEl = document.getElementById('stats');
     const missionsDone = ALL_MISSIONS.filter(isMissionDone).length;
-    let html = `<div class="stat"><div class="stat-num mono">${missionsDone}/${ALL_MISSIONS.length}</div><div class="stat-label">Missions</div></div>`;
+    let html = `<div class="stat"><div class="stat-num mono">${missionsDone}/${ALL_MISSIONS.length}</div><div class="stat-label">Gates Closed</div></div>`;
     COUNTERS.forEach(c=>{
       html += `<div class="stat"><div class="stat-num mono">${state.missions[c.id].count}/${c.target}</div><div class="stat-label">${c.label}</div></div>`;
     });
     statsEl.innerHTML = html;
     document.getElementById('overallBar').style.width = Math.round((missionsDone/ALL_MISSIONS.length)*100) + '%';
+    renderOverview();
+  }
+
+  let overviewFilter = 'all';
+
+  function passesOverviewFilter(m){
+    const done = isMissionDone(m);
+    if(overviewFilter === 'gate') return m.type === 'gate';
+    if(overviewFilter === 'habit') return m.type === 'habit';
+    if(overviewFilter === 'open') return !done;
+    if(overviewFilter === 'done') return done;
+    return true;
+  }
+
+  function renderOverview(){
+    const grid = document.getElementById('overviewGrid');
+    const countEl = document.getElementById('overviewCount');
+    const filtered = ALL_MISSIONS.filter(passesOverviewFilter);
+
+    countEl.textContent = `Showing ${filtered.length} of ${ALL_MISSIONS.length}`;
+
+    grid.innerHTML = filtered.map(m=>{
+      const done = isMissionDone(m);
+      return `
+        <button type="button" class="ov-tile" data-done="${done ? 'true':'false'}" data-jump="${m.id}">
+          <span class="ov-dot" data-complete="${done ? 'true':'false'}"></span>
+          <span class="ov-body">
+            <span class="ov-id mono">${m.type === 'gate' ? 'GATE' : 'PRACTICE'} ${m.id} · TRACK ${String(m.levelNum).padStart(2,'0')}</span>
+            <span class="ov-title">${m.title}</span>
+            <span class="ov-cat">${m.levelTitle}</span>
+          </span>
+        </button>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('.ov-tile').forEach(tile=>{
+      tile.addEventListener('click', ()=>{
+        jumpToMission(tile.getAttribute('data-jump'));
+      });
+    });
+  }
+
+  function jumpToMission(id){
+    const m = MISSION_MAP[id];
+    const details = document.querySelector(`details.level[data-level-num="${m.levelNum}"]`);
+    if(details) details.open = true;
+    requestAnimationFrame(()=>{
+      const card = document.getElementById('mission-' + id);
+      if(card){
+        card.scrollIntoView({ behavior:'smooth', block:'center' });
+        card.classList.add('flash');
+        setTimeout(()=>card.classList.remove('flash'), 1400);
+      }
+    });
   }
 
   function renderLevels(){
@@ -550,7 +712,7 @@
 
       const summary = document.createElement('summary');
       summary.innerHTML = `
-        <span class="level-num mono">${String(level.num).padStart(2,'0')}</span>
+        <span class="level-num mono">TRACK ${String(level.num).padStart(2,'0')}</span>
         <span class="level-title serif">${level.title}</span>
         <span class="level-count mono">${doneCount}/${level.missions.length}</span>
         <span class="toggle-icon"></span>
@@ -563,31 +725,41 @@
       level.missions.forEach(m=>{
         const ms = state.missions[m.id];
         const done = isMissionDone(m);
+        const list = checklistFor(m);
+        const closedCount = ms.checklist.filter(Boolean).length;
         const card = document.createElement('div');
         card.className = 'mission';
+        card.id = 'mission-' + m.id;
         card.dataset.done = done ? 'true' : 'false';
 
         const overdue = isOverdue(ms.target, done);
 
-        let checkHtml;
-        if(m.counter){
-          checkHtml = `<span class="dot-indicator" data-complete="${done ? 'true':'false'}"></span>`;
-        }else{
-          checkHtml = `
-            <label class="check">
-              <input type="checkbox" data-mission="${m.id}" ${ms.done ? 'checked' : ''}>
-              <span class="box"></span>
-            </label>`;
-        }
-
         card.innerHTML = `
           <div class="row-top">
-            ${checkHtml}
+            <span class="dot-indicator" data-complete="${done ? 'true':'false'}"></span>
             <div class="mission-body">
-              <div class="mission-id mono">MISSION ${m.id}</div>
+              <div class="mission-id mono">${m.type === 'gate' ? 'GATE' : 'PRACTICE'} ${m.id}</div>
               <div class="mission-title">${m.title}</div>
               <div class="mission-summary">${m.summary}</div>
               ${m.tags && m.tags.length ? `<div class="mission-tags">${m.tags.join(' · ')}</div>` : ''}
+
+              <div class="checklist-block">
+                <div class="checklist-label-row">
+                  <span class="checklist-label mono">${m.type === 'gate' ? 'MASTERY GATE · 9 CRITERIA' : 'MASTERY RULE · 5 CRITERIA'}</span>
+                  <span class="checklist-progress mono">${closedCount}/${list.length}</span>
+                </div>
+                <div class="checklist-items">
+                  ${list.map((text, idx) => `
+                    <label class="gate-item" data-done="${ms.checklist[idx] ? 'true':'false'}">
+                      <label class="check small">
+                        <input type="checkbox" data-mission-id="${m.id}" data-gate-item="${idx}" ${ms.checklist[idx] ? 'checked':''}>
+                        <span class="box small"></span>
+                      </label>
+                      <span class="gate-item-text">${text}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>
 
               ${m.counter ? `
                 <div class="counter-block">
@@ -607,7 +779,7 @@
                   ${overdue ? '<span class="overdue-dot"></span>' : ''}
                   <input type="date" data-target="${m.id}" value="${ms.target || ''}">
                 </div>
-                ${done ? `<div class="meta-item done-text">Done · ${ms.at ? fmtDate(ms.at) : todayStr()}</div>` : ''}
+                ${done ? `<div class="meta-item done-text">Closed · ${ms.at ? fmtDate(ms.at) : todayStr()}</div>` : ''}
               </div>
 
               <div class="notes-block">
@@ -631,13 +803,20 @@
     renderFinalBoss();
   }
 
+  function markDoneState(id){
+    const m = MISSION_MAP[id];
+    const ms = state.missions[id];
+    const done = isMissionDone(m);
+    ms.at = done ? (ms.at || new Date().toISOString()) : null;
+  }
+
   function wireLevelInteractions(container){
-    container.querySelectorAll('input[data-mission]').forEach(input=>{
+    container.querySelectorAll('input[data-gate-item]').forEach(input=>{
       input.addEventListener('change', e=>{
-        const id = e.target.getAttribute('data-mission');
-        const ms = state.missions[id];
-        ms.done = e.target.checked;
-        ms.at = ms.done ? new Date().toISOString() : null;
+        const id = e.target.getAttribute('data-mission-id');
+        const idx = parseInt(e.target.getAttribute('data-gate-item'),10);
+        state.missions[id].checklist[idx] = e.target.checked;
+        markDoneState(id);
         persist();
         renderLevels();
         renderStats();
@@ -660,6 +839,7 @@
         const dir = parseInt(e.currentTarget.getAttribute('data-dir'),10);
         const ms = state.missions[id];
         ms.count = Math.max(0, (ms.count||0) + dir);
+        markDoneState(id);
         persist();
         renderLevels();
         renderStats();
@@ -672,6 +852,7 @@
         let val = parseInt(e.target.value,10);
         if(isNaN(val) || val < 0) val = 0;
         state.missions[id].count = val;
+        markDoneState(id);
         persist();
         renderLevels();
         renderStats();
@@ -754,6 +935,16 @@
       persist(indicator);
     });
   }
+
+  // ---- overview filters ----
+  document.querySelectorAll('#overviewFilters .filter-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#overviewFilters .filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      overviewFilter = btn.getAttribute('data-filter');
+      renderOverview();
+    });
+  });
 
   // ---- controls ----
   document.getElementById('expandAll').addEventListener('click', ()=>{

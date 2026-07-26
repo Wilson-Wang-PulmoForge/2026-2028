@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026–2028 Plan — Wilson Wang</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#FFFFFF;
+    --text:#15171B;
+    --muted:#6B7280;
+    --faint:#9CA3AF;
+    --line:#E6E7EA;
+    --line-strong:#D3D5D9;
+    --fill:#15171B;
+    --overdue:#B3261E;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{ font-family:'Fraunces','Georgia',serif; }
+  .mono{ font-family:'JetBrains Mono',ui-monospace,monospace; }
+
+  a{ color:var(--text); }
+
+  /* ---------- Header ---------- */
+  header{
+    max-width:760px; margin:0 auto; padding:56px 24px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:14px;
+  }
+  h1{
+    font-size:38px; font-weight:600; margin:0 0 8px; letter-spacing:-0.01em; line-height:1.1;
+  }
+  .sub{ font-size:12.5px; color:var(--muted); letter-spacing:0.02em; margin-bottom:32px; }
+
+  .stats{ display:flex; flex-wrap:wrap; gap:0; margin-bottom:14px; }
+  .stat{ padding:0 22px 0 0; margin-right:22px; }
+  .stat:first-child{ padding-left:0; }
+  .stat-num{ font-size:20px; font-weight:500; }
+  .stat-label{ font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:3px; }
+  .stat-divider{ display:none; }
+
+  .progress-outer{ height:2px; background:var(--line); border-radius:2px; overflow:hidden; }
+  .progress-inner{ height:100%; background:var(--fill); width:0%; transition:width .3s ease; }
+
+  .controls{ display:flex; gap:14px; margin-top:18px; }
+  .text-btn{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em;
+    background:none; border:none; color:var(--muted); cursor:pointer; padding:0;
+    text-decoration:underline; text-underline-offset:3px; text-transform:uppercase;
+  }
+  .text-btn:hover{ color:var(--text); }
+
+  /* ---------- Main ---------- */
+  main{ max-width:760px; margin:0 auto; padding:0 24px 90px; }
+  .loading{ padding:64px 0; text-align:center; color:var(--faint); font-size:13px; }
+
+  details.level{ border-bottom:1px solid var(--line); }
+  details.level summary{
+    list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:14px;
+    padding:22px 0; user-select:none;
+  }
+  details.level summary::-webkit-details-marker{ display:none; }
+  .level-num{ font-size:12px; color:var(--faint); flex:none; width:20px; }
+  .level-title{ font-size:19px; font-weight:600; flex:1; min-width:0; }
+  .level-count{ font-size:12px; color:var(--muted); flex:none; }
+  .toggle-icon{
+    flex:none; width:16px; text-align:center; font-size:16px; color:var(--faint); font-weight:400;
+  }
+  .toggle-icon::before{ content:'+'; }
+  details.level[open] .toggle-icon::before{ content:'\2212'; }
+
+  .level-body{ padding-bottom:8px; }
+
+  /* ---------- Mission row ---------- */
+  .mission{ padding:20px 0; border-top:1px solid var(--line); }
+  .level-body .mission:first-child{ border-top:1px solid var(--line-strong); }
+
+  .row-top{ display:flex; gap:12px; align-items:flex-start; }
+  .check{ flex:none; cursor:pointer; padding-top:2px; display:block; }
+  .check input{ position:absolute; opacity:0; width:0; height:0; }
+  .box{
+    display:block; width:17px; height:17px; border-radius:4px; border:1.4px solid var(--line-strong);
+    position:relative; transition:all .12s ease;
+  }
+  .check input:checked + .box{ background:var(--fill); border-color:var(--fill); }
+  .check input:checked + .box::after{
+    content:''; position:absolute; left:5px; top:2px; width:5px; height:9px;
+    border:solid #fff; border-width:0 1.6px 1.6px 0; transform:rotate(45deg);
+  }
+  .check input:focus-visible + .box{ outline:2px solid var(--text); outline-offset:2px; }
+  .dot-indicator{
+    flex:none; width:17px; height:17px; border-radius:4px; border:1.4px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; margin-top:2px;
+  }
+  .dot-indicator[data-complete="true"]{ background:var(--fill); border-color:var(--fill); }
+  .dot-indicator[data-complete="true"]::after{
+    content:''; width:5px; height:9px; border:solid #fff; border-width:0 1.6px 1.6px 0; transform:rotate(45deg) translate(-1px,-1px);
+  }
+
+  .mission-body{ flex:1; min-width:0; }
+  .mission-title{ font-size:15px; font-weight:600; line-height:1.4; }
+  .mission[data-done="true"] .mission-title{ color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line-strong); }
+  .mission-summary{ font-size:13px; color:var(--muted); margin-top:6px; line-height:1.55; }
+  .mission-tags{ font-size:11.5px; color:var(--faint); margin-top:8px; line-height:1.6; }
+
+  .meta-row{ display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:14px; }
+  .meta-item{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); }
+  .meta-label{ text-transform:uppercase; letter-spacing:0.06em; color:var(--faint); }
+  input[type="date"]{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);
+    background:none; border:none; border-bottom:1px solid transparent; padding:1px 0;
+  }
+  input[type="date"]:focus{ outline:none; border-bottom-color:var(--text); color:var(--text); }
+  .overdue-dot{ width:6px; height:6px; border-radius:50%; background:var(--overdue); flex:none; }
+  .done-text{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text); }
+
+  /* ---------- Counter ---------- */
+  .counter-block{ margin-top:14px; }
+  .counter-row{ display:flex; align-items:center; gap:10px; }
+  .step{
+    width:22px; height:22px; border:1px solid var(--line-strong); background:none; border-radius:4px;
+    color:var(--text); font-size:14px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .step:hover{ border-color:var(--text); }
+  input.count-input{
+    width:64px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:13px;
+    border:none; border-bottom:1px solid var(--line-strong); background:none; color:var(--text); padding:3px 0;
+  }
+  input.count-input:focus{ outline:none; border-bottom-color:var(--text); }
+  input.count-input::-webkit-inner-spin-button, input.count-input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+  .counter-total{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); }
+  .counter-track{ height:2px; background:var(--line); border-radius:2px; margin-top:10px; overflow:hidden; }
+  .counter-fill{ height:100%; background:var(--fill); width:0%; transition:width .25s ease; }
+
+  /* ---------- Notes ---------- */
+  .notes-block{ margin-top:16px; }
+  .notes-label-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .notes-label{ font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--faint); }
+  .save-indicator{ font-size:10px; color:var(--muted); opacity:0; transition:opacity .4s ease; }
+  .save-indicator.show{ opacity:1; }
+  textarea{
+    width:100%; resize:none; overflow:hidden; min-height:26px;
+    background:none; border:none; border-bottom:1px solid transparent;
+    color:var(--text); font-family:'Inter',sans-serif; font-size:13.5px; line-height:1.55;
+    padding:2px 0; transition:border-color .15s ease;
+  }
+  textarea::placeholder{ color:var(--faint); }
+  textarea:focus{ outline:none; border-bottom-color:var(--line-strong); }
+
+  /* ---------- Final boss ---------- */
+  .finalboss{ margin-top:44px; padding-top:8px; }
+  .fb-eyebrow{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+  .fb-title{ font-size:24px; font-weight:600; margin:8px 0 6px; }
+  .fb-intro{ font-size:13.5px; color:var(--muted); margin-bottom:20px; }
+  .fb-questions{ border-top:1px solid var(--line-strong); }
+  .fb-q{ display:flex; align-items:flex-start; gap:12px; padding:16px 0; border-bottom:1px solid var(--line); cursor:pointer; }
+  .fb-q-text{ font-size:14.5px; line-height:1.5; }
+  .fb-q[data-done="true"] .fb-q-text{ color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line-strong); }
+  .fb-outro{ font-size:16px; color:var(--faint); margin-top:20px; transition:color .3s ease; }
+  .finalboss[data-complete="true"] .fb-outro{ color:var(--text); font-weight:600; }
+  .fb-notes{ margin-top:20px; }
+
+  /* ---------- Footer ---------- */
+  footer{ max-width:760px; margin:50px auto 0; padding:22px 24px 0; border-top:1px solid var(--line); text-align:center; }
+  .reset-row{ display:flex; justify-content:center; gap:10px; align-items:center; }
+  .confirm-row{ display:none; align-items:center; gap:10px; }
+  .confirm-row.show{ display:flex; }
+  .confirm-yes{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--overdue); background:none; border:1px solid var(--overdue); border-radius:4px; padding:5px 10px; cursor:pointer; }
+  .confirm-no{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--line-strong); border-radius:4px; padding:5px 10px; cursor:pointer; }
+  .footer-note{ font-size:11px; color:var(--faint); padding-bottom:26px; }
+
+  @media (max-width:640px){
+    header{ padding:40px 18px 22px; }
+    main{ padding:0 18px 70px; }
+    h1{ font-size:29px; }
+    .stats{ gap:0; }
+    .stat{ margin-right:16px; padding-right:16px; }
+    .stat-num{ font-size:17px; }
+    .meta-row{ gap:12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow mono">PulmoForge · Wilson Wang</div>
+  <h1 class="serif">2026–2028 Plan</h1>
+  <div class="sub mono">24 MISSIONS · 8 LEVELS · 1 FINAL BOSS</div>
+
+  <div class="stats" id="stats">
+    <div class="stat"><div class="stat-num mono" id="statMissions">0/24</div><div class="stat-label">Missions</div></div>
+    <div class="stat"><div class="stat-num mono" id="statPapers">0/500</div><div class="stat-label">Papers</div></div>
+    <div class="stat"><div class="stat-num mono" id="statExperiments">0/1000</div><div class="stat-label">Experiments</div></div>
+    <div class="stat"><div class="stat-num mono" id="statCompanies">0/1000</div><div class="stat-label">Companies</div></div>
+    <div class="stat"><div class="stat-num mono" id="statArticles">0/1000</div><div class="stat-label">Articles</div></div>
+  </div>
+  <div class="progress-outer"><div class="progress-inner" id="overallBar"></div></div>
+
+  <div class="controls">
+    <button class="text-btn" id="expandAll">Expand all</button>
+    <button class="text-btn" id="collapseAll">Collapse all</button>
+  </div>
+</header>
+
+<main>
+  <div id="loading" class="loading mono">loading plan…</div>
+  <div class="levels" id="levels" style="display:none;"></div>
+</main>
+
+<footer>
+  <div class="footer-note mono">Progress saves automatically to this browser session.</div>
+  <div class="reset-row">
+    <button class="text-btn" id="resetBtn">Reset all progress</button>
+    <div class="confirm-row" id="confirmRow">
+      <span class="mono" style="font-size:11px;color:var(--muted);">Erase everything?</span>
+      <button class="confirm-yes" id="confirmYes">Yes, reset</button>
+      <button class="confirm-no" id="confirmNo">Cancel</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  const LEVELS = [
+    { num:1, title:"Become the World Expert in Voice Trust", missions:[
+      { id:1, title:"Read 500 Research Papers on AI Voice",
+        summary:"Not skim — actually understand. Become the person who knows every breakthrough, limitation, and unsolved problem in synthetic voice detection.",
+        tags:["Deepfake detection","Audio forensics","Speech representation learning","Self-supervised learning","Speaker verification","Voice cloning","TTS","Adversarial attacks","Multimodal security","Human perception of voice"],
+        counter:{ target:500, unit:'papers' } },
+      { id:2, title:"Build the PulmoForge Knowledge Base",
+        summary:"Create your own internal Wikipedia — the accumulated knowledge behind every product decision.",
+        tags:["WavLM","HuBERT","Whisper","ECAPA-TDNN","Speaker embeddings","Voice cloning models","TTS architectures","Audio codecs","LLM agents","Authentication systems","Cybersecurity frameworks","Fraud patterns"] },
+      { id:3, title:"Explain Voice Security Simply",
+        summary:"Master explaining why voice cloning works, why humans get fooled, why current authentication and AI detectors fail, and why PulmoForge is different. If a CEO, engineer, investor, or teenager can't understand it, you don't understand it deeply enough.",
+        tags:["Why voice cloning works","Why humans get fooled","Why current authentication fails","Why existing AI detectors fail","Why PulmoForge is different"] }
+    ]},
+    { num:2, title:"Become a Technical Monster", missions:[
+      { id:4, title:"Rebuild the AI Voice Stack",
+        summary:"Don't just use models — recreate them. Understand both sides: how voices are created, and how voices are detected.",
+        tags:["WavLM","HuBERT","Wav2Vec2","Whisper encoder","CNN audio classifiers","Transformers","Attention pooling","Contrastive learning","Metric learning","ECAPA-TDNN","Speaker verification","Voice biometrics","Tacotron","VITS","Bark","Dia","ElevenLabs-style systems"] },
+      { id:5, title:"Build 1,000 Voice Experiments",
+        summary:"Every experiment documented in PulmoForge Research Lab/. Failures become your competitive advantage.",
+        tags:["New preprocessing method","New augmentation","New architecture","New dataset combination","New thresholding strategy","New attack simulation"],
+        counter:{ target:1000, unit:'experiments' } },
+      { id:6, title:"Create the World's Best Voice Fraud Dataset",
+        summary:"Don't just train on existing data — build it. Eventually, researchers compare against the PulmoForge benchmark.",
+        tags:["Real human speech","Synthetic voices","Multiple TTS engines","Voice conversion attacks","Noise environments","Phone-quality audio","Meeting-quality audio","Multilingual voices"] },
+      { id:7, title:"Build Every Important Voice AI Architecture",
+        summary:"Understand why it works, where it breaks, and how attackers exploit it.",
+        tags:["CNN audio models","RNN/LSTM","Transformers","Conformers","Wav2Vec2","HuBERT","WavLM","Whisper","ECAPA-TDNN","Diffusion TTS","Flow matching","Multimodal models"] }
+    ]},
+    { num:3, title:"Cybersecurity Dominance", missions:[
+      { id:8, title:"Read Every Major Voice Security Report",
+        summary:"How are attackers operating? What industries are vulnerable? Where are current defenses weak?",
+        tags:["Pindrop","Microsoft Security","CrowdStrike","Mandiant","Palo Alto Networks","Cloudflare","Okta","NIST","FBI fraud reports"] },
+      { id:9, title:"Analyze Every Competitor",
+        summary:"Track technology, customers, pricing, weaknesses, moats, funding, patents. Know the market better than investors.",
+        tags:["Pindrop","Reality Defender","Resemble AI","ElevenLabs","Hive","Sensity","Veridas","ID R&D"] },
+      { id:10, title:"Read Every Relevant Patent",
+        summary:"Find what everyone is protecting — and what nobody is building.",
+        tags:["Detection methods","Watermarking","Authentication","Voice biometrics","Fraud prevention"] }
+    ]},
+    { num:4, title:"Founder Mode", missions:[
+      { id:11, title:"Analyze 1,000 Security + AI Companies",
+        summary:"Problem, solution, technical moat, distribution strategy, founder insight — why they won, why they failed.",
+        tags:["OpenAI","NVIDIA","Stripe","Cloudflare","CrowdStrike","Palo Alto","DeepMind"],
+        counter:{ target:1000, unit:'companies' } },
+      { id:12, title:"Master Enterprise Security Sales",
+        summary:"PulmoForge is not only an AI problem. It is a trust infrastructure problem.",
+        tags:["Security buying process","CISOs","Compliance","Procurement","Enterprise pilots","Security questionnaires","SOC teams","Risk calculations"] },
+      { id:13, title:"Build the PulmoForge Founder OS",
+        summary:"Your future self should be able to understand why every decision happened.",
+        tags:["Research notes","Product decisions","Customer conversations","Experiments","Strategy","Mistakes","Lessons"] }
+    ]},
+    { num:5, title:"Research Leader", missions:[
+      { id:14, title:"Publish Voice Security Research",
+        summary:"Become associated with: \"Wilson understands synthetic voice security.\"",
+        tags:["Papers","Technical blogs","Benchmarks","Open-source tools"] },
+      { id:15, title:"Create Industry Benchmarks",
+        summary:"Don't only compete on models. Define the standard.",
+        tags:["Voice Fraud Benchmark","Real-Time Detection Benchmark","Meeting Attack Benchmark","Adversarial Voice Benchmark"] },
+      { id:16, title:"Solve Problems Nobody Notices",
+        summary:"Ask: everyone accepts this limitation — why?",
+        tags:["Why can't meetings verify speakers automatically?","Why can't every call have a trust score?","Why can't identity travel with audio?","Why is voice still treated as unauthenticated data?"] }
+    ]},
+    { num:6, title:"Communication & Leadership", missions:[
+      { id:17, title:"Write 1,000 Technical Articles",
+        summary:"Become the person people learn from.",
+        tags:["Voice AI research","Cybersecurity trends","AI safety","Fraud prevention","Product lessons"],
+        counter:{ target:1000, unit:'articles' } },
+      { id:18, title:"Predict the Future",
+        summary:"Every month, write where voice security is going. Predict AI attacks, regulations, enterprise adoption, model capabilities. Keep score.",
+        tags:["AI attacks","Regulations","Enterprise adoption","Model capabilities"] },
+      { id:19, title:"Challenge Your Own Thinking",
+        summary:"Ask these questions weekly.",
+        tags:["Why might PulmoForge fail?","What assumption is wrong?","Who already solved this?","What would a better founder do?"] }
+    ]},
+    { num:7, title:"Personal Operating System", missions:[
+      { id:20, title:"Build Founder-Level Health",
+        summary:"A company cannot outperform its founder's operating system.",
+        tags:["Sleep","Strength training","Cardio","Nutrition","Consistency"] },
+      { id:21, title:"Become an Exceptional Communicator",
+        summary:"Eventually: conference talks.",
+        tags:["Investor pitches","Technical explanations","Public speaking","Interviews","Leadership"] }
+    ]},
+    { num:8, title:"Legacy", missions:[
+      { id:22, title:"Build PulmoForge University",
+        summary:"An internal knowledge platform.",
+        tags:["Courses","Research","Training material","Security education"] },
+      { id:23, title:"Write the Book",
+        summary:"Eventually: \"The Future of Trust in the Age of Synthetic Intelligence.\"",
+        tags:["The Future of Trust in the Age of Synthetic Intelligence"] },
+      { id:24, title:"Build Beyond PulmoForge",
+        summary:"PulmoForge is the first company. The deeper mission: build technology that helps humans know what is real.",
+        tags:["The deeper mission"] }
+    ]}
+  ];
+
+  const FINAL_BOSS = {
+    title:"Become Impossible to Replace",
+    intro:"If PulmoForge disappeared tomorrow:",
+    questions:[
+      "Could you build another company?",
+      "Could you identify another invisible problem?",
+      "Could you create technology nobody believed was possible?"
+    ],
+    outro:"If yes, you won."
+  };
+
+  const ALL_MISSIONS = LEVELS.flatMap(l => l.missions);
+  const STORAGE_KEY = 'plan_2026_2028_v1';
+
+  let state = null;
+  let saveTimer = null;
+
+  function defaultState(){
+    const missions = {};
+    ALL_MISSIONS.forEach(m => {
+      missions[m.id] = { done:false, note:'', at:null, target:'', count: m.counter ? 0 : undefined };
+    });
+    return {
+      missions,
+      finalBoss: { q:[false,false,false], note:'', target:'' }
+    };
+  }
+
+  async function loadState(){
+    try{
+      const res = await window.storage.get(STORAGE_KEY, false);
+      if(res && res.value){
+        const parsed = JSON.parse(res.value);
+        const fresh = defaultState();
+        Object.keys(fresh.missions).forEach(id=>{
+          if(parsed.missions && parsed.missions[id]) Object.assign(fresh.missions[id], parsed.missions[id]);
+        });
+        if(parsed.finalBoss){
+          fresh.finalBoss.q = (parsed.finalBoss.q && parsed.finalBoss.q.length===3) ? parsed.finalBoss.q : fresh.finalBoss.q;
+          fresh.finalBoss.note = parsed.finalBoss.note || '';
+          fresh.finalBoss.target = parsed.finalBoss.target || '';
+        }
+        return fresh;
+      }
+    }catch(e){ /* fall through */ }
+    return defaultState();
+  }
+
+  function scheduleSave(indicatorEl){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(()=>persist(indicatorEl), 550);
+  }
+
+  async function persist(indicatorEl){
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(state), false);
+      if(indicatorEl){
+        indicatorEl.classList.add('show');
+        clearTimeout(indicatorEl._fade);
+        indicatorEl._fade = setTimeout(()=>indicatorEl.classList.remove('show'), 1300);
+      }
+    }catch(e){ /* best effort */ }
+  }
+
+  function fmtDate(iso){
+    if(!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  }
+
+  function todayStr(){
+    return new Date().toISOString().slice(0,10);
+  }
+
+  function isMissionDone(m){
+    const ms = state.missions[m.id];
+    if(m.counter) return ms.count >= m.counter.target;
+    return ms.done;
+  }
+
+  function isOverdue(target, done){
+    if(!target || done) return false;
+    return target < todayStr();
+  }
+
+  function autoGrow(ta){
+    ta.style.height = 'auto';
+    ta.style.height = Math.max(26, ta.scrollHeight) + 'px';
+  }
+
+  function renderLevels(){
+    const container = document.getElementById('levels');
+    const openState = {};
+    container.querySelectorAll('details.level').forEach(d=>{ openState[d.dataset.levelNum] = d.open; });
+    container.innerHTML = '';
+
+    LEVELS.forEach(level=>{
+      const doneCount = level.missions.filter(isMissionDone).length;
+
+      const details = document.createElement('details');
+      details.className = 'level';
+      details.dataset.levelNum = level.num;
+      details.open = openState.hasOwnProperty(String(level.num)) ? openState[level.num] : true;
+
+      const summary = document.createElement('summary');
+      summary.innerHTML = `
+        <span class="level-num mono">${String(level.num).padStart(2,'0')}</span>
+        <span class="level-title serif">${level.title}</span>
+        <span class="level-count mono">${doneCount}/${level.missions.length}</span>
+        <span class="toggle-icon"></span>
+      `;
+      details.appendChild(summary);
+
+      const body = document.createElement('div');
+      body.className = 'level-body';
+
+      level.missions.forEach(m=>{
+        const ms = state.missions[m.id];
+        const done = isMissionDone(m);
+        const card = document.createElement('div');
+        card.className = 'mission';
+        card.dataset.done = done ? 'true' : 'false';
+
+        const overdue = isOverdue(ms.target, done);
+
+        let checkHtml;
+        if(m.counter){
+          checkHtml = `<span class="dot-indicator" data-complete="${done ? 'true':'false'}"></span>`;
+        }else{
+          checkHtml = `
+            <label class="check">
+              <input type="checkbox" data-mission="${m.id}" ${ms.done ? 'checked' : ''}>
+              <span class="box"></span>
+            </label>`;
+        }
+
+        card.innerHTML = `
+          <div class="row-top">
+            ${checkHtml}
+            <div class="mission-body">
+              <div class="mission-title">${m.title}</div>
+              <div class="mission-summary">${m.summary}</div>
+              <div class="mission-tags">${m.tags.join(' · ')}</div>
+
+              ${m.counter ? `
+                <div class="counter-block">
+                  <div class="counter-row">
+                    <button type="button" class="step" data-counter="${m.id}" data-dir="-1">−</button>
+                    <input type="number" class="count-input mono" data-count-input="${m.id}" value="${ms.count}" min="0">
+                    <span class="counter-total mono">/ ${m.counter.target} ${m.counter.unit}</span>
+                    <button type="button" class="step" data-counter="${m.id}" data-dir="1">+</button>
+                  </div>
+                  <div class="counter-track"><div class="counter-fill" style="width:${Math.min(100, (ms.count/m.counter.target)*100)}%"></div></div>
+                </div>
+              ` : ''}
+
+              <div class="meta-row">
+                <div class="meta-item">
+                  <span class="meta-label">Target</span>
+                  ${overdue ? '<span class="overdue-dot"></span>' : ''}
+                  <input type="date" data-target="${m.id}" value="${ms.target || ''}">
+                </div>
+                ${done ? `<div class="meta-item done-text">Done · ${ms.at ? fmtDate(ms.at) : todayStr()}</div>` : ''}
+              </div>
+
+              <div class="notes-block">
+                <div class="notes-label-row">
+                  <span class="notes-label">Notes</span>
+                  <span class="save-indicator mono">saved</span>
+                </div>
+                <textarea data-note="${m.id}" placeholder="Log progress, findings, decisions…">${ms.note}</textarea>
+              </div>
+            </div>
+          </div>
+        `;
+        body.appendChild(card);
+      });
+
+      details.appendChild(body);
+      container.appendChild(details);
+    });
+
+    wireLevelInteractions(container);
+    renderFinalBoss();
+  }
+
+  function wireLevelInteractions(container){
+    container.querySelectorAll('input[data-mission]').forEach(input=>{
+      input.addEventListener('change', e=>{
+        const id = e.target.getAttribute('data-mission');
+        const ms = state.missions[id];
+        ms.done = e.target.checked;
+        ms.at = ms.done ? new Date().toISOString() : null;
+        persist();
+        renderLevels();
+        renderStats();
+      });
+    });
+
+    container.querySelectorAll('input[data-target]').forEach(input=>{
+      input.addEventListener('change', e=>{
+        const id = e.target.getAttribute('data-target');
+        state.missions[id].target = e.target.value;
+        persist();
+        renderLevels();
+        renderStats();
+      });
+    });
+
+    container.querySelectorAll('.step').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        const id = e.currentTarget.getAttribute('data-counter');
+        const dir = parseInt(e.currentTarget.getAttribute('data-dir'),10);
+        const ms = state.missions[id];
+        ms.count = Math.max(0, (ms.count||0) + dir);
+        persist();
+        renderLevels();
+        renderStats();
+      });
+    });
+
+    container.querySelectorAll('input[data-count-input]').forEach(input=>{
+      input.addEventListener('change', e=>{
+        const id = e.target.getAttribute('data-count-input');
+        let val = parseInt(e.target.value,10);
+        if(isNaN(val) || val < 0) val = 0;
+        state.missions[id].count = val;
+        persist();
+        renderLevels();
+        renderStats();
+      });
+    });
+
+    container.querySelectorAll('textarea[data-note]').forEach(ta=>{
+      autoGrow(ta);
+      ta.addEventListener('input', e=>{
+        const id = e.target.getAttribute('data-note');
+        state.missions[id].note = e.target.value;
+        autoGrow(e.target);
+        const indicator = e.target.closest('.notes-block').querySelector('.save-indicator');
+        scheduleSave(indicator);
+      });
+      ta.addEventListener('blur', e=>{
+        const indicator = e.target.closest('.notes-block').querySelector('.save-indicator');
+        persist(indicator);
+      });
+    });
+  }
+
+  function renderFinalBoss(){
+    let fb = document.getElementById('finalBossSection');
+    if(fb) fb.remove();
+
+    const complete = state.finalBoss.q.every(Boolean);
+
+    fb = document.createElement('div');
+    fb.className = 'finalboss';
+    fb.id = 'finalBossSection';
+    fb.dataset.complete = complete ? 'true' : 'false';
+
+    fb.innerHTML = `
+      <div class="fb-eyebrow mono">Final Boss</div>
+      <div class="fb-title serif">${FINAL_BOSS.title}</div>
+      <div class="fb-intro">${FINAL_BOSS.intro}</div>
+      <div class="fb-questions">
+        ${FINAL_BOSS.questions.map((q,i)=>`
+          <label class="fb-q" data-done="${state.finalBoss.q[i] ? 'true':'false'}">
+            <label class="check" style="padding-top:1px;">
+              <input type="checkbox" data-boss="${i}" ${state.finalBoss.q[i] ? 'checked':''}>
+              <span class="box"></span>
+            </label>
+            <span class="fb-q-text">${q}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="fb-outro serif">${FINAL_BOSS.outro}</div>
+      <div class="fb-notes notes-block">
+        <div class="notes-label-row">
+          <span class="notes-label">Notes</span>
+          <span class="save-indicator mono">saved</span>
+        </div>
+        <textarea data-boss-note="1" placeholder="What would it take to answer yes to all three?">${state.finalBoss.note}</textarea>
+      </div>
+    `;
+
+    document.getElementById('levels').appendChild(fb);
+
+    fb.querySelectorAll('input[data-boss]').forEach(input=>{
+      input.addEventListener('change', e=>{
+        const i = parseInt(e.target.getAttribute('data-boss'),10);
+        state.finalBoss.q[i] = e.target.checked;
+        persist();
+        renderFinalBoss();
+      });
+    });
+
+    const ta = fb.querySelector('textarea[data-boss-note]');
+    autoGrow(ta);
+    ta.addEventListener('input', e=>{
+      state.finalBoss.note = e.target.value;
+      autoGrow(e.target);
+      const indicator = e.target.closest('.notes-block').querySelector('.save-indicator');
+      scheduleSave(indicator);
+    });
+    ta.addEventListener('blur', e=>{
+      const indicator = e.target.closest('.notes-block').querySelector('.save-indicator');
+      persist(indicator);
+    });
+  }
+
+  function renderStats(){
+    const missionsDone = ALL_MISSIONS.filter(isMissionDone).length;
+    document.getElementById('statMissions').textContent = `${missionsDone}/24`;
+    document.getElementById('statPapers').textContent = `${state.missions[1].count}/500`;
+    document.getElementById('statExperiments').textContent = `${state.missions[5].count}/1000`;
+    document.getElementById('statCompanies').textContent = `${state.missions[11].count}/1000`;
+    document.getElementById('statArticles').textContent = `${state.missions[17].count}/1000`;
+    document.getElementById('overallBar').style.width = Math.round((missionsDone/24)*100) + '%';
+  }
+
+  // ---- controls ----
+  document.getElementById('expandAll').addEventListener('click', ()=>{
+    document.querySelectorAll('details.level').forEach(d=>d.open = true);
+  });
+  document.getElementById('collapseAll').addEventListener('click', ()=>{
+    document.querySelectorAll('details.level').forEach(d=>d.open = false);
+  });
+
+  const resetBtn = document.getElementById('resetBtn');
+  const confirmRow = document.getElementById('confirmRow');
+  resetBtn.addEventListener('click', ()=>{
+    confirmRow.classList.add('show');
+    resetBtn.style.display = 'none';
+  });
+  document.getElementById('confirmNo').addEventListener('click', ()=>{
+    confirmRow.classList.remove('show');
+    resetBtn.style.display = 'inline';
+  });
+  document.getElementById('confirmYes').addEventListener('click', async ()=>{
+    state = defaultState();
+    await persist();
+    confirmRow.classList.remove('show');
+    resetBtn.style.display = 'inline';
+    renderLevels();
+    renderStats();
+  });
+
+  // ---- init ----
+  (async function init(){
+    state = await loadState();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('levels').style.display = 'block';
+    renderLevels();
+    renderStats();
+  })();
+
+})();
+</script>
+</body>
+</html>

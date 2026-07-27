@@ -305,7 +305,7 @@
 </main>
 
 <footer>
-  <div class="footer-note mono">Progress saves automatically to this browser session.</div>
+  <div class="footer-note mono">Progress saves automatically in this browser.</div>
   <div class="reset-row">
     <button class="text-btn" id="resetBtn">Reset all progress</button>
     <div class="confirm-row" id="confirmRow">
@@ -563,11 +563,18 @@
     };
   }
 
-  async function loadState(){
+  // ---------------------------------------------------------------------
+  // Persistence layer — plain localStorage.
+  // This runs as a static page on GitHub Pages (no window.storage backend),
+  // so state is saved directly in the visitor's browser under STORAGE_KEY
+  // and survives refreshes, closing the tab, and restarting the browser.
+  // It's local to this browser/device only (not synced across devices).
+  // ---------------------------------------------------------------------
+  function loadState(){
     try{
-      const res = await window.storage.get(STORAGE_KEY, false);
-      if(res && res.value){
-        const parsed = JSON.parse(res.value);
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        const parsed = JSON.parse(raw);
         const fresh = defaultState();
         Object.keys(fresh.missions).forEach(id=>{
           const p = parsed.missions && parsed.missions[id];
@@ -596,9 +603,9 @@
     saveTimer = setTimeout(()=>persist(indicatorEl), 550);
   }
 
-  async function persist(indicatorEl){
+  function persist(indicatorEl){
     try{
-      await window.storage.set(STORAGE_KEY, JSON.stringify(state), false);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       if(indicatorEl){
         indicatorEl.classList.add('show');
         clearTimeout(indicatorEl._fade);
@@ -967,9 +974,9 @@
     confirmRow.classList.remove('show');
     resetBtn.style.display = 'inline';
   });
-  document.getElementById('confirmYes').addEventListener('click', async ()=>{
+  document.getElementById('confirmYes').addEventListener('click', ()=>{
     state = defaultState();
-    await persist();
+    persist();
     confirmRow.classList.remove('show');
     resetBtn.style.display = 'inline';
     renderLevels();
@@ -977,8 +984,8 @@
   });
 
   // ---- init ----
-  (async function init(){
-    state = await loadState();
+  (function init(){
+    state = loadState();
     renderHeaderText();
     document.getElementById('loading').style.display = 'none';
     document.getElementById('levels').style.display = 'block';
